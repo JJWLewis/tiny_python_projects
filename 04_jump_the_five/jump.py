@@ -38,12 +38,20 @@ def get_args():
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
+    """Comvert the numbers in an input string to there 'jump the 5' equivalents."""
 
     args = get_args()
     str_arg = args.inputString
 
-    print(str_arg)
+    jump_map:dict = {'1': '9', '2': '8', '3': '7', '4': '6', '5': '0',
+                     '6': '4', '7': '3', '8': '2', '9': '1', '0': '5'}
+
+    new_str:str = ''
+    for letter in str_arg:
+        val = jump_map.get(letter, letter)
+        new_str = new_str + val
+
+    print(new_str)
 
 
 # --------------------------------------------------
