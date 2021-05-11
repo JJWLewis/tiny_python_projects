@@ -16,55 +16,34 @@ def get_args():
         description='Rock the Casbah',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('positional',
-                        metavar='str',
-                        help='A positional argument')
-
-    parser.add_argument('-a',
-                        '--arg',
-                        help='A named string argument',
-                        metavar='str',
-                        type=str,
-                        default='')
-
-    parser.add_argument('-i',
-                        '--int',
-                        help='A named integer argument',
-                        metavar='int',
-                        type=int,
-                        default=0)
+    parser.add_argument('letter',
+                        metavar='letter',
+                        help='Letter(s)',
+                        nargs='+')
 
     parser.add_argument('-f',
                         '--file',
-                        help='A readable file',
+                        help='Input file',
                         metavar='FILE',
-                        type=argparse.FileType('r'),
-                        default=None)
-
-    parser.add_argument('-o',
-                        '--on',
-                        help='A boolean flag',
-                        action='store_true')
+                        type=argparse.FileType('rt'),
+                        default='gashlycrumb.txt')
 
     return parser.parse_args()
 
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
+    """Return letter description from input file"""
 
     args = get_args()
-    pos_arg = args.positional
-    str_arg = args.arg
-    int_arg = args.int
-    file_arg = args.file
-    flag_arg = args.on
+    
+    file_dict:dict = {}
 
-    print(f'positional = "{pos_arg}"')
-    print(f'str_arg = "{str_arg}"')
-    print(f'int_arg = "{int_arg}"')
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ''))
-    print(f'flag_arg = "{flag_arg}"')
+    # Create dict from file
+    file_dict = {line[0].upper(): line.rstrip() for line in args.file}
+    
+    for letter in args.letter:
+        print(file_dict.get(letter.upper(), f'I do not know "{letter}".'))
 
 
 # --------------------------------------------------
