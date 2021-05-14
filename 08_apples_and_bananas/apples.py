@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Apples and Bananas"""
+"""
+Author : Me <me@foo.com>
+Date   : today
+Purpose: Rock the Casbah
+"""
 
 import argparse
 import os
@@ -7,17 +11,19 @@ import os
 
 # --------------------------------------------------
 def get_args():
-    """get command-line arguments"""
+    """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Apples and bananas',
+        description='Rock the Casbah',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('text', metavar='text', help='Input text or file')
+    parser.add_argument('sentence',
+                        metavar='sentence',
+                        help='Either a string or file path')
 
     parser.add_argument('-v',
                         '--vowel',
-                        help='The vowel to substitute',
+                        help='vowel of choice to substitute',
                         metavar='vowel',
                         type=str,
                         default='a',
@@ -25,8 +31,8 @@ def get_args():
 
     args = parser.parse_args()
 
-    if os.path.isfile(args.text):
-        args.text = open(args.text).read().rstrip()
+    if os.path.isfile(args.sentence):
+        args.sentence = open(args.sentence, 'rt').read()
 
     return args
 
@@ -36,12 +42,16 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    vowel = args.vowel
+    vowel: str = args.vowel
 
-    def new_char(c: str) -> str:
-        return vowel if c in 'aeiou' else vowel.upper() if c in 'AEIOU' else c
+    out_text: str = map(
+        lambda cha: vowel
+        if cha in 'aeiou' else vowel.upper()
+        if cha in 'AEIOU' else cha,
+        args.sentence
+    )
 
-    print(''.join(map(new_char, args.text)))
+    print(''.join(out_text))
 
 
 # --------------------------------------------------
