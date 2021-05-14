@@ -5,7 +5,7 @@ import re
 import os
 from subprocess import getstatusoutput, getoutput
 
-prg = './apples.py'
+prg = './solution7_map_function.py'
 fox = '../inputs/fox.txt'
 
 
