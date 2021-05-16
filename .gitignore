@@ -13,3 +13,5 @@ tex2pdf*
 .idea
 .vscode
 .metals
+.devcontainer/devcontainer.json
+.devcontainer/Dockerfile
